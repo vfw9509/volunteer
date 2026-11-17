@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volunteer with VFW Post 9509 &amp; Auxiliary</title>
+<meta name="description" content="Help your Post! Food nights, turkey shoot, yard work, repairs, errands and more. Members, family and friends welcome — sign up in a minute, no account needed.">
+<!-- Link preview card for Facebook, texts, email -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Volunteer with VFW Post 9509 & Auxiliary">
+<meta property="og:description" content="Food nights, turkey shoot, yard work, repairs, errands and more. Members, family and friends welcome — sign up in a minute.">
+<meta property="og:image" content="https://vfw9509.github.io/volunteer/share-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://vfw9509.github.io/volunteer/share.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1f2f57">
+<style>
+  :root { --navy:#1f2f57; --gold:#c9a227; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:#f4f5f8; color:#1b1f2a; }
+  header { background:var(--navy); color:#fff; padding:18px 16px 16px; border-bottom:4px solid var(--gold); text-align:center; }
+  header h1 { margin:0; font-size:1.35rem; }
+  header p { margin:6px 0 0; opacity:.9; }
+  main { max-width:520px; margin:0 auto; padding:16px; }
+  .card { background:#fff; border:1px solid #d9dce4; border-radius:14px; padding:16px; margin-bottom:14px; text-align:center; }
+  .qr { display:block; width:100%; max-width:340px; margin:0 auto; border-radius:10px; }
+  .btn { display:block; width:100%; border:0; border-radius:11px; padding:14px; font:inherit; font-weight:700; font-size:1.05rem; text-decoration:none; cursor:pointer; margin:8px 0; text-align:center; }
+  .gold { background:var(--gold); color:#1b1f2a; }
+  .navy { background:var(--navy); color:#fff; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .grid .btn { margin:0; font-size:.98rem; padding:12px 8px; background:#eef0f5; color:var(--navy); }
+  .link { font-family:ui-monospace, Menlo, Consolas, monospace; background:#f6f7fa; border:1px dashed #b9bfcc; border-radius:9px; padding:10px; word-break:break-all; margin:8px 0; }
+  .muted { color:#5d6475; font-size:.92rem; }
+  .ok { color:#1e7a3c; font-weight:700; min-height:1.2em; }
+  @media print { header, .noprint { display:none; } body { background:#fff; } .card { border:0; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Volunteer with VFW Post 9509 &amp; Auxiliary</h1>
+  <p>Members, family and friends — all welcome</p>
+</header>
+<main>
+  <div class="card noprint" id="ev-card" hidden style="text-align:left;border:2px solid var(--gold)">
+    <h2 style="margin:0 0 6px;font-size:1.15rem;color:var(--navy)">📣 Share this event</h2>
+    <div class="link" id="ev-msg" style="font-family:inherit;word-break:normal;overflow-wrap:anywhere"></div>
+    <button class="btn navy" id="ev-copy">📋 Copy message</button>
+    <a class="btn gold" id="ev-fb" href="#" target="_blank" rel="noopener">📘 Post to Facebook</a>
+    <p class="muted" style="margin:4px 0 10px">Facebook doesn't let websites fill in your post — tap <b>Copy message</b> first, then <b>Post to Facebook</b> and paste it in.</p>
+    <div class="grid">
+      <a class="btn" id="ev-sms" href="#">💬 Text it</a>
+      <a class="btn" id="ev-mail" href="#">✉️ Email it</a>
+    </div>
+    <div class="ok" id="ev-ok"></div>
+  </div>
+  <div class="card">
+    <a id="qr-link" href="https://tinyurl.com/VFW9509Volunteer"><img class="qr" src="volunteer-qr.png" alt="QR code: scan to volunteer — tinyurl.com/VFW9509Volunteer"></a>
+    <p class="muted">Scan with your phone's camera, or tap the code.</p>
+    <a class="btn gold" href="https://tinyurl.com/VFW9509Volunteer">✋ Open the volunteer page</a>
+  </div>
+
+  <div class="card noprint">
+    <h2 style="margin:0 0 6px;font-size:1.15rem;color:var(--navy)">📣 Share it with friends</h2>
+    <p class="muted" style="margin-top:0">Food nights, turkey shoot, yard work, repairs, errands, poppy drive — sign up in a minute, no account needed.</p>
+    <button class="btn navy" id="native" hidden>Share…</button>
+    <div class="grid">
+      <a class="btn" id="sms" href="#">💬 Text it</a>
+      <a class="btn" id="fb" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+      <a class="btn" id="mail" href="#">✉️ Email</a>
+      <button class="btn" id="copy">🔗 Copy link</button>
+      <a class="btn" href="volunteer-qr.png" download="VFW9509-Volunteer-QR.png">⬇️ Download QR</a>
+      <button class="btn" onclick="window.print()">🖨 Print</button>
+    </div>
+    <div class="ok" id="msg"></div>
+    <div class="muted">Direct links:</div>
+    <div class="link" id="the-link">https://tinyurl.com/VFW9509Volunteer</div>
+    <div class="muted">This share page: <span id="share-url">vfw9509.github.io/volunteer/share.html</span></div>
+  </div>
+  <p class="muted" style="text-align:center">VFW Post 9509 · 1141 South Live Oak Drive, Moncks Corner, SC · 843.900.4450</p>
+</main>
+<script>
+var LINK = 'https://tinyurl.com/VFW9509Volunteer';
+var SHARE = 'https://vfw9509.github.io/volunteer/share.html';
+var TEXT = 'Help out at VFW Post 9509 & Auxiliary! Food nights, turkey shoot, yard work, repairs, errands and more — members, family and friends welcome. Sign up in a minute: ';
+var isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+document.getElementById('sms').href = 'sms:' + (isApple ? '&' : '?') + 'body=' + encodeURIComponent(TEXT + LINK);
+document.getElementById('fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(SHARE);
+document.getElementById('mail').href = 'mailto:?subject=' + encodeURIComponent('Volunteer with VFW Post 9509 & Auxiliary') + '&body=' + encodeURIComponent(TEXT + LINK + '\n\nOr scan the QR code: ' + SHARE);
+function say(t){ var m=document.getElementById('msg'); m.textContent=t; setTimeout(function(){ if(m.textContent===t) m.textContent=''; }, 2500); }
+document.getElementById('copy').onclick = function(){
+  function fallback(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('the-link')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); try{ document.execCommand('copy'); say('Link copied ✓'); }catch(e){ say('Press and hold the link below to copy it'); } }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(LINK).then(function(){ say('Link copied ✓'); }, fallback); else fallback();
+};
+// Event mode: share.html?ev=EVENTID&msg=TEXT (from a sign-up confirmation email)
+(function(){
+  var q = new URLSearchParams(location.search), ev = q.get('ev'), msg = q.get('msg');
+  if (!ev || !msg) return;
+  var evLink = 'https://vfw9509.github.io/volunteer/?ev=' + encodeURIComponent(ev);
+  document.getElementById('ev-card').hidden = false;
+  document.getElementById('ev-msg').textContent = msg;
+  document.getElementById('ev-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(evLink);
+  document.getElementById('ev-sms').href = 'sms:' + (isApple ? '&' : '?') + 'body=' + encodeURIComponent(msg);
+  document.getElementById('ev-mail').href = 'mailto:?subject=' + encodeURIComponent('Volunteer with me — VFW Post 9509 & Auxiliary') + '&body=' + encodeURIComponent(msg);
+  document.getElementById('ev-copy').onclick = function(){
+    var ok = function(){ var m=document.getElementById('ev-ok'); m.textContent='Message copied ✓ — now tap Post to Facebook and paste it'; };
+    var fb = function(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('ev-msg')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); try{ document.execCommand('copy'); ok(); }catch(e){} };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(msg).then(ok, fb); else fb();
+  };
+  if (navigator.share) { var nb=document.getElementById('native'); nb.hidden=false; nb.onclick=function(){ navigator.share({ title:'Volunteer with VFW Post 9509 & Auxiliary', text: msg }).catch(function(){}); }; }
+})();
+if (navigator.share && !document.getElementById('native').onclick) {
+  var nb = document.getElementById('native'); nb.hidden = false;
+  nb.onclick = function(){ navigator.share({ title: 'Volunteer with VFW Post 9509 & Auxiliary', text: TEXT, url: LINK }).catch(function(){}); };
+}
+</script>
+</body>
+</html>
