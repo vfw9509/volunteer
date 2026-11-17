@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VFW Post 9509 Volunteers</title>
+<meta name="description" content="See what VFW Post 9509 needs and sign up to help — food nights, turkey shoot, yard work, maintenance and errands.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="VFW Volunteers">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1f2f57">
+<style>
+  html, body { margin:0; height:100%; background:#1f2f57; font-family:-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+  body { display:flex; flex-direction:column; height:100vh; height:100dvh; padding-top:env(safe-area-inset-top); box-sizing:border-box; }
+  #bar { background:#c9a227; color:#1b1f2a; padding:10px 12px; display:flex; gap:10px; align-items:center; font-size:15px; line-height:1.3; }
+  #bar[hidden] { display:none; }
+  #bar .txt { flex:1; }
+  #bar button { font:inherit; border:0; border-radius:8px; padding:8px 14px; font-weight:700; cursor:pointer; }
+  #bar .add { background:#1f2f57; color:#fff; }
+  #bar .x { background:transparent; font-size:20px; padding:4px 8px; }
+  .share { display:inline-block; width:15px; height:17px; vertical-align:-3px; }
+  iframe { flex:1; border:0; width:100%; background:#f4f5f8; display:block; }
+  noscript { color:#fff; padding:20px; display:block; }
+</style>
+</head>
+<body>
+<div id="bar" hidden><span class="txt" id="bar-text"></span><button class="add" id="bar-add" hidden>Add</button><button class="x" id="bar-x" aria-label="Close">×</button></div>
+<iframe id="app" title="VFW Post 9509 Volunteers" allow="clipboard-write"></iframe>
+<noscript>Please turn on JavaScript to use the volunteer page.</noscript>
+<script>
+/* ====== The only line to edit: your Apps Script web app link (ends in /exec) ====== */
+var EXEC_URL = 'PASTE_YOUR_EXEC_URL_HERE';
+/* ================================================================================= */
+
+var TRUSTED = /\.googleusercontent\.com$|^https:\/\/script\.google\.com$/;
+function get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+function set(k,v){ try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e){} }
+
+// Load the volunteer page, passing along ?page=admin etc. and the remembered phone
+(function(){
+  var params = new URLSearchParams(location.search);
+  var phone = get('vfw_vol_phone');
+  if (phone && !params.has('vp')) params.set('vp', phone);
+  var q = params.toString();
+  document.getElementById('app').src = EXEC_URL + (q ? (EXEC_URL.indexOf('?') >= 0 ? '&' : '?') + q : '');
+})();
+
+// The volunteer page tells us who's signed in, so this device remembers them
+window.addEventListener('message', function(e){
+  if (!TRUSTED.test(e.origin) || !e.data || e.data.type !== 'vfw-vol-phone') return;
+  set('vfw_vol_phone', e.data.phone ? String(e.data.phone).replace(/\D/g,'').slice(0,10) : null);
+});
+
+// ---------- "Add to home screen" bar ----------
+var bar = document.getElementById('bar'), txt = document.getElementById('bar-text'), addBtn = document.getElementById('bar-add');
+var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+var dismissed = Number(get('vfw_bar_dismissed') || 0) > Date.now() - 14 * 864e5;
+var ua = navigator.userAgent;
+var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+var isAndroid = /Android/.test(ua);
+var deferred = null;
+
+function show(html, withAdd){ txt.innerHTML = html; addBtn.hidden = !withAdd; bar.hidden = false; }
+document.getElementById('bar-x').onclick = function(){ bar.hidden = true; set('vfw_bar_dismissed', String(Date.now())); };
+
+if (!standalone && !dismissed) {
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault(); deferred = e;
+    show('📲 <b>Add to your home screen</b> so it\'s one tap away.', true);
+  });
+  addBtn.onclick = function(){
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.then(function(){ deferred = null; bar.hidden = true; });
+  };
+  if (isIOS) {
+    show('📲 Keep this handy: tap <svg class="share" viewBox="0 0 15 17"><path d="M7.5 0l3.5 3.5-.9.9L8.1 2.4V11H6.9V2.4L4.9 4.4 4 3.5z M1 6h3v1.2H2.2v8.6h10.6V7.2H11V6h3v11H1z" fill="#1f2f57"/></svg> <b>Share</b>, then <b>Add to Home Screen</b>.', false);
+  } else if (isAndroid) {
+    // If Chrome hasn't offered one-tap install after a few seconds, show the menu tip instead
+    setTimeout(function(){ if (!deferred && bar.hidden) show('📲 Keep this handy: tap the <b>⋮</b> menu, then <b>Add to Home screen</b>.', false); }, 4000);
+  }
+}
+
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(function(){}); }
+</script>
+</body>
+</html>
